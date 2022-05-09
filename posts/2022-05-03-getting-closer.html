@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Carbon emissions and my solar equipped home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+    <section class="section">
+    <div class="container">
+        <h1 class="title">
+            Carbon emissions and my solar equipped home
+        </h1>
+        <p class="subtitle">
+            <strong>Effectively running a house for a week on a gallon of gas</strong>
+        </p>
+    </div>
+    </section>
+
+    <section class="section">
+    <div class="container columns">
+        <div class="column is-three-quarters">
+            <div class="content">
+                <p>
+                At the end of 2021 I had solar panels installed on my house. The impact on my electric bill was dramatic and immediate, even in winter. With the days getting longer and longer my little power plant is producing more and more energy. The near real-time visibility into production is pretty fantastic. I’ve spent a bunch of time monitoring the output of my panels. Among folks with new installations I’m pretty sure this is "normal" behavior. It’s kinda fun to root for the sun! As I’ve spent time looking at my solar power generation I’ve gotten more curious about the source of the other power I’d been using and what non-solar energy I’m still using.
+                </p>
+                <p>
+                The grid operator, PJM, makes the overall mix easy to find out. Broadly speaking my grid provided power is 32% nuclear, 26% gas, 19% coal and the remaining 23% is a mix. Wind does make a surprise appearance and seems like a provide a pretty constant 4%.
+                </p>
+            </div>
+            <div class="content">
+                <div id="pjm-mix"></div>
+                <div class="is-size-7">MW of power by fuel source on April 26, 2022. Source <a href="https://pjm.com/">pjm.com</a></div>
+            </div>
+            <div class="content">
+                <p>
+                Living in Washington, DC I’m able to choose my energy provider and I do. Before installing solar I was paying way above market rates for green power.  According to my provider it was 100% hydroelectric. Still, I’m not sure that how the actually grid works. Seems like I don’t get to pick the source of the actual electrons which are pushed into my home. At best I’m altering the overall mix in the grid. At worst, I’m just giving somebody extra money for something they’d be doing anyhow. I’d like to think it’s the former, but I’m pretty sure it’s the later.
+                </p>
+            </div>
+            <div class="content">
+                <div id="grid-use-before"></div>
+                <div class="is-size-7">Hourly use in KWH for April 18-24, 2021 &amp; before solar panels. Retrieved from pepco.com</div>
+            </div>
+            <div class="content">
+                <p>
+                I didn’t have any real expectations about when I used power or how much. That we often used more dramatically more power in the evening hours was interesting. Otherwise this usage is pretty boring. Saying I use more power when I use more power isn’t very compelling. That starts to change when I’m not just using power, but producing it too.
+                </p>
+            </div>
+
+            <div class="content">
+                <div id="grid-use-after"></div>
+                <div class="is-size-7">Hourly use in KWH for April 17-20, 2022 &amp; with solar panels. Excess generation is negative. Retrieved from pepco.com</div>
+            </div>
+            <div class="content">
+                <p>
+                Now in 2022 my consumption looks different because I’m producing power when the sun is out. Right off the bat it’s clear that I’m generating way more than I use. You can still see those evening peaks on nights where cook dinner as a family, run the dishwasher or do laundry at night.  But those peaks are absolutely dwarfed by power generation most days. For this week my house provided 188.4 kwh to the grid and used 29.1 kwh. So we pushed way more power than we consumed and that is fantastic.
+                </p>
+                <p>
+                Still this net usage way of thinking however is not entirely honest. Combined with my pessimistic view of real impact power choice, I know that coal &amp; gas are are still being burned to power my fridge and lights. So, I calculated calculate how much. Nuclear, wind and hydro provide 42% of the power on a regular basis so I’ll ignore those. Natural gas is 32% and coal around 19%.  There is another 3% of “other” that I’m going to lump (heh) in with coal. The <a href="https://www.eia.gov/tools/faqs/faq.php?id=74&amp;t=11">EIA</a> has average emissions for coal at 2.23 lbs per kwh and gas at 0.91 lbs per kwh.
+                </p>
+                <p>
+                For this one week in April, generating power for my solar equipped home emitted 22.8 lbs of CO2. Comparable to the ~20 lbs of CO2 you get from using a single gallon of gas.
+                </p>
+            </div>
+        </div>
+        <div class="column">
+            <div class="content">
+                <p>
+                    <strong>Jeff Miccolis</strong>
+                    <a href="https://mastodon.social/@miccolis">mastodon.social/@miccolis</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    </section>
+    <script>
+        // PJM Power Mix Graph
+        (() => {
+            const height = 160;
+            const width = 700;
+
+            const bottomGutter = 20;
+            const leftGutter = 40;
+            const rightGutter = 140;
+
+            const byFuelType = {
+                "fuelTypes": ["Coal", "Gas", "Hydro", "Multiple Fuels", "Nuclear", "Oil", "Other", "Other Renewables", "Solar", "Storage", "Wind"],
+                "data": {
+                    "2022-04-27T00:00:00": ["16482.7", "31282.5", "2063.1", "723.2", "28308.0", "217.9", "62.2", "657.2", "959.6", "0.0", "6727.4"],
+                    "2022-04-26T23:00:00": ["16482.7", "31282.5", "2063.1", "723.2", "28308.0", "217.9", "62.2", "657.2", "959.6", "0.0", "6727.4"],
+                    "2022-04-26T22:00:00": ["16482.7", "31282.5", "2063.1", "723.2", "28308.0", "217.9", "62.2", "657.2", "959.6", "0.0", "6727.4"],
+                    "2022-04-26T21:00:00": ["16482.7", "31282.5", "2063.1", "723.2", "28308.0", "217.9", "62.2", "657.2", "959.6", "0.0", "6727.4"],
+                    "2022-04-26T20:00:00": ["16235.5", "31496.2", "1646.2", "726.2", "28484.4", "214.1", "47.8", "651.2", "1699.7", "0.0", "6082.9"],
+                    "2022-04-26T19:00:00": ["16537.6", "31283.5", "1264.1", "694.2", "28609.3", "212.3", "247.6", "650.6", "2043.1", "0.0", "5427.8"],
+                    "2022-04-26T18:00:00": ["16913.2", "32504.7", "1803.8", "718.3", "28603.4", "215.8", "362.7", "661.2", "2241.8", "0.0", "4640.0"],
+                    "2022-04-26T17:00:00": ["17072.9", "32176.6", "2037.9", "622.3", "28623.6", "238.5", "375.8", "652.9", "2530.0", "0.0", "4168.5"],
+                    "2022-04-26T16:00:00": ["16859.6", "31946.3", "2501.9", "548.6", "28648.8", "216.0", "394.0", "645.5", "2756.5", "0.0", "3664.0"],
+                    "2022-04-26T15:00:00": ["17016.9", "32563.0", "2474.6", "607.4", "28672.1", "216.0", "399.8", "629.0", "2594.0", "0.0", "2980.4"],
+                    "2022-04-26T14:00:00": ["16940.0", "32483.9", "2481.5", "632.4", "28685.0", "215.4", "384.7", "645.5", "2428.5", "0.0", "2929.6"],
+                    "2022-04-26T13:00:00": ["16267.7", "32150.0", "2696.4", "286.4", "28673.3", "214.4", "358.3", "630.6", "2203.1", "0.0", "3393.6"],
+                    "2022-04-26T12:00:00": ["16338.2", "32251.7", "2585.6", "285.9", "28680.0", "218.3", "267.2", "661.7", "1850.0", "0.0", "3481.8"],
+                    "2022-04-26T11:00:00": ["15979.4", "30899.0", "3298.0", "232.5", "28680.7", "214.7", "103.4", "661.2", "642.6", "0.0", "3125.8"],
+                    "2022-04-26T10:00:00": ["16087.8", "29197.0", "1705.2", "170.6", "28685.4", "218.0", "0.0", "655.7", "6.6", "0.0", "3333.5"],
+                    "2022-04-26T09:00:00": ["15038.6", "25371.5", "1206.1", "3.2", "28695.6", "215.5", "0.0", "658.3", "6.6", "0.0", "3440.3"],
+                    "2022-04-26T08:00:00": ["14390.7", "23896.0", "1206.3", "3.2", "28663.1", "210.3", "0.0", "665.0", "6.6", "0.0", "3736.5"],
+                    "2022-04-26T07:00:00": ["14168.2", "23779.5", "1188.5", "3.2", "28672.7", "210.9", "14.8", "656.5", "6.6", "0.0", "3469.2"],
+                    "2022-04-26T06:00:00": ["14580.4", "24453.3", "1188.7", "3.2", "28664.7", "213.2", "14.8", "648.9", "6.6", "0.0", "3739.8"],
+                    "2022-04-26T05:00:00": ["14608.2", "24318.5", "1187.6", "3.2", "28666.5", "215.4", "14.8", "657.4", "6.6", "0.0", "4202.4"],
+                    "2022-04-26T04:00:00": ["15038.0", "23191.2", "1178.6", "3.2", "28669.9", "212.2", "14.8", "666.0", "6.6", "0.0", "4832.0"]
+                }
+            };
+
+
+            // Stack the lines
+            for (const key in byFuelType.data) {
+                for (let i = 0; i < byFuelType.fuelTypes.length; i++) {
+                    if (i === 0) {
+                     byFuelType.data[key][i] = parseFloat(byFuelType.data[key][i])
+                    } else {
+                     byFuelType.data[key][i] = byFuelType.data[key][i - 1] + parseFloat(byFuelType.data[key][i])
+                    }
+                }
+            }
+
+            const svg = d3.select("#pjm-mix")
+                .append("svg")
+                    .attr("height", height)
+                    .attr("width", width);
+
+            const y = d3.scaleLinear()
+                .domain([100000, 0])
+                .range([0, height - bottomGutter ]);
+
+            const yAxis = d3.axisLeft(y).ticks(5);
+
+            svg.append("g")
+                .attr("transform", `translate(${leftGutter},0)`)
+                .call(yAxis);
+
+            const extent = d3.extent(Object.keys(byFuelType.data))
+            const x = d3.scaleTime()
+                .domain([new Date(extent[0]), new Date(extent[1])])
+                .range([0, width - leftGutter - rightGutter]);
+
+            const xAxis = d3.axisBottom(x)
+
+            svg.append("g")
+                .attr("transform", `translate(${leftGutter},${height - bottomGutter })`)
+                .call(xAxis);
+
+            const legend = svg.append("g").attr("font-size", 10)
+                .attr("transform", `translate(${width - rightGutter + 30}, -5)`);
+
+            legendHeight = byFuelType.fuelTypes.length * 14;
+            const fuels = legend.selectAll("g").data(byFuelType.fuelTypes)
+                .enter()
+                .append("g")
+                .attr("transform", (d, i) => `translate(0, ${legendHeight - (14 * i)})`);
+
+            fuels.append("circle")
+                    .attr("fill", (d, i) => d3.schemeSet3[i])
+                    .attr("stroke", "dimgrey")
+                    .attr("stroke-width", "1")
+                    .attr("r", 5)
+                    .attr("x", 3);
+
+            fuels.append("text")
+                    .text((d) => d)
+                    .attr("x", 10)
+                    .attr("y", 4);
+
+
+            const graph = svg.append("g")
+                .attr("transform", `translate(${leftGutter + 1},-1)`);
+
+            byFuelType.fuelTypes.forEach((fuelType, idx) => {
+                const data = Object.entries(byFuelType.data).map(
+                    ([datetime, cols]) => ({
+                        datetime: new Date(datetime),
+                        value: cols[idx],
+                        lval: idx > 0 ? cols[idx-1] : 0
+                    })
+                );
+                graph.append("path")
+                    .datum(data)
+                    .attr("fill", d3.schemeSet3[idx])
+                    .attr("stroke", d => d3.schemeSet3[idx])
+                    .attr("stroke-width", 1.5)
+                    .attr("d", d3.area()
+                        .x((d) => x(d.datetime))
+                        .y1((d) => y(d.value))
+                        .y0((d, i) => y(d.lval))
+                    );
+            });
+        })();
+
+        // Grid Use Before
+        (() => {
+            const height = 100;
+            const width = 700;
+
+            const bottomGutter = 20;
+            const leftGutter = 20;
+
+            const meteredUsage = [
+                { "datetime": "2021-04-18T00:00:00.000-0400", "kwh": 0.25 },
+                { "datetime": "2021-04-18T01:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2021-04-18T02:00:00.000-0400", "kwh": 0.32 },
+                { "datetime": "2021-04-18T03:00:00.000-0400", "kwh": 0.23 },
+                { "datetime": "2021-04-18T04:00:00.000-0400", "kwh": 0.24 },
+                { "datetime": "2021-04-18T05:00:00.000-0400", "kwh": 0.22 },
+                { "datetime": "2021-04-18T06:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2021-04-18T07:00:00.000-0400", "kwh": 0.2 },
+                { "datetime": "2021-04-18T08:00:00.000-0400", "kwh": 0.51 },
+                { "datetime": "2021-04-18T09:00:00.000-0400", "kwh": 0.44 },
+                { "datetime": "2021-04-18T10:00:00.000-0400", "kwh": 0.58 },
+                { "datetime": "2021-04-18T11:00:00.000-0400", "kwh": 0.51 },
+                { "datetime": "2021-04-18T12:00:00.000-0400", "kwh": 0.4 },
+                { "datetime": "2021-04-18T13:00:00.000-0400", "kwh": 0.3 },
+                { "datetime": "2021-04-18T14:00:00.000-0400", "kwh": 0.26 },
+                { "datetime": "2021-04-18T15:00:00.000-0400", "kwh": 0.24 },
+                { "datetime": "2021-04-18T16:00:00.000-0400", "kwh": 0.34 },
+                { "datetime": "2021-04-18T17:00:00.000-0400", "kwh": 0.78 },
+                { "datetime": "2021-04-18T18:00:00.000-0400", "kwh": 0.62 },
+                { "datetime": "2021-04-18T19:00:00.000-0400", "kwh": 1.74 },
+                { "datetime": "2021-04-18T20:00:00.000-0400", "kwh": 1.95 },
+                { "datetime": "2021-04-18T21:00:00.000-0400", "kwh": 0.51 },
+                { "datetime": "2021-04-18T22:00:00.000-0400", "kwh": 0.45 },
+                { "datetime": "2021-04-18T23:00:00.000-0400", "kwh": 0.8 },
+                { "datetime": "2021-04-19T00:00:00.000-0400", "kwh": 0.41 },
+                { "datetime": "2021-04-19T01:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2021-04-19T02:00:00.000-0400", "kwh": 0.24 },
+                { "datetime": "2021-04-19T03:00:00.000-0400", "kwh": 0.26 },
+                { "datetime": "2021-04-19T04:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2021-04-19T05:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2021-04-19T06:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2021-04-19T07:00:00.000-0400", "kwh": 0.31 },
+                { "datetime": "2021-04-19T08:00:00.000-0400", "kwh": 0.74 },
+                { "datetime": "2021-04-19T09:00:00.000-0400", "kwh": 0.41 },
+                { "datetime": "2021-04-19T10:00:00.000-0400", "kwh": 0.35 },
+                { "datetime": "2021-04-19T11:00:00.000-0400", "kwh": 0.36 },
+                { "datetime": "2021-04-19T12:00:00.000-0400", "kwh": 0.36 },
+                { "datetime": "2021-04-19T13:00:00.000-0400", "kwh": 0.37 },
+                { "datetime": "2021-04-19T14:00:00.000-0400", "kwh": 0.25 },
+                { "datetime": "2021-04-19T15:00:00.000-0400", "kwh": 0.27 },
+                { "datetime": "2021-04-19T16:00:00.000-0400", "kwh": 0.31 },
+                { "datetime": "2021-04-19T17:00:00.000-0400", "kwh": 0.52 },
+                { "datetime": "2021-04-19T18:00:00.000-0400", "kwh": 1.3 },
+                { "datetime": "2021-04-19T19:00:00.000-0400", "kwh": 1.85 },
+                { "datetime": "2021-04-19T20:00:00.000-0400", "kwh": 0.39 },
+                { "datetime": "2021-04-19T21:00:00.000-0400", "kwh": 0.29 },
+                { "datetime": "2021-04-19T22:00:00.000-0400", "kwh": 0.28 },
+                { "datetime": "2021-04-19T23:00:00.000-0400", "kwh": 0.25 },
+                { "datetime": "2021-04-20T00:00:00.000-0400", "kwh": 0.21 },
+                { "datetime": "2021-04-20T01:00:00.000-0400", "kwh": 0.24 },
+                { "datetime": "2021-04-20T02:00:00.000-0400", "kwh": 0.21 },
+                { "datetime": "2021-04-20T03:00:00.000-0400", "kwh": 0.15 },
+                { "datetime": "2021-04-20T04:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2021-04-20T05:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2021-04-20T06:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2021-04-20T07:00:00.000-0400", "kwh": 0.64 },
+                { "datetime": "2021-04-20T08:00:00.000-0400", "kwh": 0.44 },
+                { "datetime": "2021-04-20T09:00:00.000-0400", "kwh": 0.29 },
+                { "datetime": "2021-04-20T10:00:00.000-0400", "kwh": 0.25 },
+                { "datetime": "2021-04-20T11:00:00.000-0400", "kwh": 0.35 },
+                { "datetime": "2021-04-20T12:00:00.000-0400", "kwh": 0.27 },
+                { "datetime": "2021-04-20T13:00:00.000-0400", "kwh": 0.32 },
+                { "datetime": "2021-04-20T14:00:00.000-0400", "kwh": 0.35 },
+                { "datetime": "2021-04-20T15:00:00.000-0400", "kwh": 0.27 },
+                { "datetime": "2021-04-20T16:00:00.000-0400", "kwh": 0.27 },
+                { "datetime": "2021-04-20T17:00:00.000-0400", "kwh": 0.39 },
+                { "datetime": "2021-04-20T18:00:00.000-0400", "kwh": 0.24 },
+                { "datetime": "2021-04-20T19:00:00.000-0400", "kwh": 0.43 },
+                { "datetime": "2021-04-20T20:00:00.000-0400", "kwh": 0.5 },
+                { "datetime": "2021-04-20T21:00:00.000-0400", "kwh": 0.38 },
+                { "datetime": "2021-04-20T22:00:00.000-0400", "kwh": 0.34 },
+                { "datetime": "2021-04-20T23:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2021-04-21T00:00:00.000-0400", "kwh": 0.16 },
+                { "datetime": "2021-04-21T01:00:00.000-0400", "kwh": 0.21 },
+                { "datetime": "2021-04-21T02:00:00.000-0400", "kwh": 0.22 },
+                { "datetime": "2021-04-21T03:00:00.000-0400", "kwh": 0.3 },
+                { "datetime": "2021-04-21T04:00:00.000-0400", "kwh": 0.2 },
+                { "datetime": "2021-04-21T05:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2021-04-21T06:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2021-04-21T07:00:00.000-0400", "kwh": 0.53 },
+                { "datetime": "2021-04-21T08:00:00.000-0400", "kwh": 0.63 },
+                { "datetime": "2021-04-21T09:00:00.000-0400", "kwh": 0.4 },
+                { "datetime": "2021-04-21T10:00:00.000-0400", "kwh": 0.32 },
+                { "datetime": "2021-04-21T11:00:00.000-0400", "kwh": 0.37 },
+                { "datetime": "2021-04-21T12:00:00.000-0400", "kwh": 0.38 },
+                { "datetime": "2021-04-21T13:00:00.000-0400", "kwh": 0.84 },
+                { "datetime": "2021-04-21T14:00:00.000-0400", "kwh": 0.81 },
+                { "datetime": "2021-04-21T15:00:00.000-0400", "kwh": 0.41 },
+                { "datetime": "2021-04-21T16:00:00.000-0400", "kwh": 0.28 },
+                { "datetime": "2021-04-21T17:00:00.000-0400", "kwh": 0.58 },
+                { "datetime": "2021-04-21T18:00:00.000-0400", "kwh": 0.44 },
+                { "datetime": "2021-04-21T19:00:00.000-0400", "kwh": 0.36 },
+                { "datetime": "2021-04-21T20:00:00.000-0400", "kwh": 0.3 },
+                { "datetime": "2021-04-21T21:00:00.000-0400", "kwh": 0.5 },
+                { "datetime": "2021-04-21T22:00:00.000-0400", "kwh": 0.47 },
+                { "datetime": "2021-04-21T23:00:00.000-0400", "kwh": 0.23 },
+                { "datetime": "2021-04-22T00:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2021-04-22T01:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2021-04-22T02:00:00.000-0400", "kwh": 0.16 },
+                { "datetime": "2021-04-22T03:00:00.000-0400", "kwh": 0.28 },
+                { "datetime": "2021-04-22T04:00:00.000-0400", "kwh": 0.2 },
+                { "datetime": "2021-04-22T05:00:00.000-0400", "kwh": 0.15 },
+                { "datetime": "2021-04-22T06:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2021-04-22T07:00:00.000-0400", "kwh": 0.63 },
+                { "datetime": "2021-04-22T08:00:00.000-0400", "kwh": 0.39 },
+                { "datetime": "2021-04-22T09:00:00.000-0400", "kwh": 0.51 },
+                { "datetime": "2021-04-22T10:00:00.000-0400", "kwh": 0.44 },
+                { "datetime": "2021-04-22T11:00:00.000-0400", "kwh": 0.28 },
+                { "datetime": "2021-04-22T12:00:00.000-0400", "kwh": 0.34 },
+                { "datetime": "2021-04-22T13:00:00.000-0400", "kwh": 0.32 },
+                { "datetime": "2021-04-22T14:00:00.000-0400", "kwh": 0.32 },
+                { "datetime": "2021-04-22T15:00:00.000-0400", "kwh": 0.35 },
+                { "datetime": "2021-04-22T16:00:00.000-0400", "kwh": 0.31 },
+                { "datetime": "2021-04-22T17:00:00.000-0400", "kwh": 0.5 },
+                { "datetime": "2021-04-22T18:00:00.000-0400", "kwh": 0.23 },
+                { "datetime": "2021-04-22T19:00:00.000-0400", "kwh": 1.74 },
+                { "datetime": "2021-04-22T20:00:00.000-0400", "kwh": 1.21 },
+                { "datetime": "2021-04-22T21:00:00.000-0400", "kwh": 0.79 },
+                { "datetime": "2021-04-22T22:00:00.000-0400", "kwh": 0.78 },
+                { "datetime": "2021-04-22T23:00:00.000-0400", "kwh": 0.2 },
+                { "datetime": "2021-04-23T00:00:00.000-0400", "kwh": 0.16 },
+                { "datetime": "2021-04-23T01:00:00.000-0400", "kwh": 0.16 },
+                { "datetime": "2021-04-23T02:00:00.000-0400", "kwh": 0.17 },
+                { "datetime": "2021-04-23T03:00:00.000-0400", "kwh": 0.23 },
+                { "datetime": "2021-04-23T04:00:00.000-0400", "kwh": 0.26 },
+                { "datetime": "2021-04-23T05:00:00.000-0400", "kwh": 0.23 },
+                { "datetime": "2021-04-23T06:00:00.000-0400", "kwh": 0.17 },
+                { "datetime": "2021-04-23T07:00:00.000-0400", "kwh": 0.45 },
+                { "datetime": "2021-04-23T08:00:00.000-0400", "kwh": 0.6 },
+                { "datetime": "2021-04-23T09:00:00.000-0400", "kwh": 0.5 },
+                { "datetime": "2021-04-23T10:00:00.000-0400", "kwh": 0.41 },
+                { "datetime": "2021-04-23T11:00:00.000-0400", "kwh": 0.36 },
+                { "datetime": "2021-04-23T12:00:00.000-0400", "kwh": 0.34 },
+                { "datetime": "2021-04-23T13:00:00.000-0400", "kwh": 0.37 },
+                { "datetime": "2021-04-23T14:00:00.000-0400", "kwh": 0.39 },
+                { "datetime": "2021-04-23T15:00:00.000-0400", "kwh": 0.25 },
+                { "datetime": "2021-04-23T16:00:00.000-0400", "kwh": 0.24 },
+                { "datetime": "2021-04-23T17:00:00.000-0400", "kwh": 0.29 },
+                { "datetime": "2021-04-23T18:00:00.000-0400", "kwh": 0.42 },
+                { "datetime": "2021-04-23T19:00:00.000-0400", "kwh": 0.39 },
+                { "datetime": "2021-04-23T20:00:00.000-0400", "kwh": 0.43 },
+                { "datetime": "2021-04-23T21:00:00.000-0400", "kwh": 0.35 },
+                { "datetime": "2021-04-23T22:00:00.000-0400", "kwh": 0.36 },
+                { "datetime": "2021-04-23T23:00:00.000-0400", "kwh": 0.84 },
+                { "datetime": "2021-04-24T00:00:00.000-0400", "kwh": 0.59 },
+                { "datetime": "2021-04-24T01:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2021-04-24T02:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2021-04-24T03:00:00.000-0400", "kwh": 0.17 },
+                { "datetime": "2021-04-24T04:00:00.000-0400", "kwh": 0.24 },
+                { "datetime": "2021-04-24T05:00:00.000-0400", "kwh": 0.31 },
+                { "datetime": "2021-04-24T06:00:00.000-0400", "kwh": 0.2 },
+                { "datetime": "2021-04-24T07:00:00.000-0400", "kwh": 0.16 },
+                { "datetime": "2021-04-24T08:00:00.000-0400", "kwh": 0.57 },
+                { "datetime": "2021-04-24T09:00:00.000-0400", "kwh": 0.6 },
+                { "datetime": "2021-04-24T10:00:00.000-0400", "kwh": 0.33 },
+                { "datetime": "2021-04-24T11:00:00.000-0400", "kwh": 0.2 },
+                { "datetime": "2021-04-24T12:00:00.000-0400", "kwh": 0.33 },
+                { "datetime": "2021-04-24T13:00:00.000-0400", "kwh": 0.36 },
+                { "datetime": "2021-04-24T14:00:00.000-0400", "kwh": 0.26 },
+                { "datetime": "2021-04-24T15:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2021-04-24T16:00:00.000-0400", "kwh": 0.24 },
+                { "datetime": "2021-04-24T17:00:00.000-0400", "kwh": 0.34 },
+                { "datetime": "2021-04-24T18:00:00.000-0400", "kwh": 0.45 },
+                { "datetime": "2021-04-24T19:00:00.000-0400", "kwh": 0.46 },
+                { "datetime": "2021-04-24T20:00:00.000-0400", "kwh": 0.39 },
+                { "datetime": "2021-04-24T21:00:00.000-0400", "kwh": 0.32 },
+                { "datetime": "2021-04-24T22:00:00.000-0400", "kwh": 0.33 },
+                { "datetime": "2021-04-24T23:00:00.000-0400", "kwh": 0.21 }
+            ];
+
+            const svg = d3.select("#grid-use-before")
+                .append("svg")
+                    .attr("height", height)
+                    .attr("width", width)
+
+            const y = d3.scaleLinear()
+                .domain([3, 0])
+                .range([0, height - bottomGutter ]);
+
+            const yAxis = d3.axisLeft(y).ticks(5);
+
+            svg.append("g")
+                .attr("transform", `translate(${leftGutter},0)`)
+                .call(yAxis);
+
+            const extent = [ new Date(meteredUsage[0].datetime), new Date(meteredUsage[meteredUsage.length - 1].datetime) ];
+            const x = d3.scaleTime()
+                .domain(extent)
+                .range([0, width - leftGutter]);
+
+            const xAxis = d3.axisBottom(x)
+
+            svg.append("g")
+                .attr("transform", `translate(${leftGutter},${height - bottomGutter })`)
+                .call(xAxis);
+
+            const graph = svg.append("g")
+                .attr("transform", `translate(${leftGutter + 1},-1)`);
+
+            graph.append("path")
+                .datum(meteredUsage)
+                .attr("fill", "steelblue")
+                .attr("stroke", "steelblue")
+                .attr("stroke-width", 1.5)
+                .attr("d", d3.area()
+                    .x((d) => x(new Date(d.datetime)))
+                    .y1((d) => y(d.kwh))
+                    .y0((d) => y(0))
+                );
+        })();
+
+        // Grid use after 
+        (() => {
+
+            const height = 200;
+            const width = 700;
+
+            const bottomGutter = 20;
+            const leftGutter = 20;
+
+            const meteredUsage = [
+                { "datetime": "2022-04-17T00:00:00.000-0400", "kwh": 0.3 },
+                { "datetime": "2022-04-17T01:00:00.000-0400", "kwh": 0.2 },
+                { "datetime": "2022-04-17T02:00:00.000-0400", "kwh": 0.23 },
+                { "datetime": "2022-04-17T03:00:00.000-0400", "kwh": 0.16 },
+                { "datetime": "2022-04-17T04:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2022-04-17T05:00:00.000-0400", "kwh": 0.16 },
+                { "datetime": "2022-04-17T06:00:00.000-0400", "kwh": 0.17 },
+                { "datetime": "2022-04-17T07:00:00.000-0400", "kwh": -0.07 },
+                { "datetime": "2022-04-17T08:00:00.000-0400", "kwh": 0.02 },
+                { "datetime": "2022-04-17T09:00:00.000-0400", "kwh": -0.42 },
+                { "datetime": "2022-04-17T10:00:00.000-0400", "kwh": -2.9 },
+                { "datetime": "2022-04-17T11:00:00.000-0400", "kwh": -4.98 },
+                { "datetime": "2022-04-17T12:00:00.000-0400", "kwh": -5.07 },
+                { "datetime": "2022-04-17T13:00:00.000-0400", "kwh": -5.11 },
+                { "datetime": "2022-04-17T14:00:00.000-0400", "kwh": -4.74 },
+                { "datetime": "2022-04-17T15:00:00.000-0400", "kwh": -4.93 },
+                { "datetime": "2022-04-17T16:00:00.000-0400", "kwh": -4.65 },
+                { "datetime": "2022-04-17T17:00:00.000-0400", "kwh": -2.77 },
+                { "datetime": "2022-04-17T18:00:00.000-0400", "kwh": -0.2 },
+                { "datetime": "2022-04-17T19:00:00.000-0400", "kwh": 1.5 },
+                { "datetime": "2022-04-17T20:00:00.000-0400", "kwh": 2.04 },
+                { "datetime": "2022-04-17T21:00:00.000-0400", "kwh": 0.5 },
+                { "datetime": "2022-04-17T22:00:00.000-0400", "kwh": 0.6 },
+                { "datetime": "2022-04-17T23:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2022-04-18T00:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2022-04-18T01:00:00.000-0400", "kwh": 0.17 },
+                { "datetime": "2022-04-18T02:00:00.000-0400", "kwh": 0.15 },
+                { "datetime": "2022-04-18T03:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2022-04-18T04:00:00.000-0400", "kwh": 0.15 },
+                { "datetime": "2022-04-18T05:00:00.000-0400", "kwh": 0.15 },
+                { "datetime": "2022-04-18T06:00:00.000-0400", "kwh": 0.12 },
+                { "datetime": "2022-04-18T07:00:00.000-0400", "kwh": 0.02 },
+                { "datetime": "2022-04-18T08:00:00.000-0400", "kwh": -0.16 },
+                { "datetime": "2022-04-18T09:00:00.000-0400", "kwh": -0.28 },
+                { "datetime": "2022-04-18T10:00:00.000-0400", "kwh": -0.32 },
+                { "datetime": "2022-04-18T11:00:00.000-0400", "kwh": -0.23 },
+                { "datetime": "2022-04-18T12:00:00.000-0400", "kwh": -0.12 },
+                { "datetime": "2022-04-18T13:00:00.000-0400", "kwh": -0.2 },
+                { "datetime": "2022-04-18T14:00:00.000-0400", "kwh": -0.52 },
+                { "datetime": "2022-04-18T15:00:00.000-0400", "kwh": 0.11 },
+                { "datetime": "2022-04-18T16:00:00.000-0400", "kwh": -0.38 },
+                { "datetime": "2022-04-18T17:00:00.000-0400", "kwh": 0.25 },
+                { "datetime": "2022-04-18T18:00:00.000-0400", "kwh": 0.39 },
+                { "datetime": "2022-04-18T19:00:00.000-0400", "kwh": 0.8 },
+                { "datetime": "2022-04-18T20:00:00.000-0400", "kwh": 0.37 },
+                { "datetime": "2022-04-18T21:00:00.000-0400", "kwh": 0.33 },
+                { "datetime": "2022-04-18T22:00:00.000-0400", "kwh": 0.41 },
+                { "datetime": "2022-04-18T23:00:00.000-0400", "kwh": 0.44 },
+                { "datetime": "2022-04-19T00:00:00.000-0400", "kwh": 0.79 },
+                { "datetime": "2022-04-19T01:00:00.000-0400", "kwh": 0.2 },
+                { "datetime": "2022-04-19T02:00:00.000-0400", "kwh": 0.14 },
+                { "datetime": "2022-04-19T03:00:00.000-0400", "kwh": 0.14 },
+                { "datetime": "2022-04-19T04:00:00.000-0400", "kwh": 0.2 },
+                { "datetime": "2022-04-19T05:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2022-04-19T06:00:00.000-0400", "kwh": 0.2 },
+                { "datetime": "2022-04-19T07:00:00.000-0400", "kwh": 0.38 },
+                { "datetime": "2022-04-19T08:00:00.000-0400", "kwh": -0.02 },
+                { "datetime": "2022-04-19T09:00:00.000-0400", "kwh": -0.79 },
+                { "datetime": "2022-04-19T10:00:00.000-0400", "kwh": -2.2 },
+                { "datetime": "2022-04-19T11:00:00.000-0400", "kwh": -2.11 },
+                { "datetime": "2022-04-19T12:00:00.000-0400", "kwh": -3.62 },
+                { "datetime": "2022-04-19T13:00:00.000-0400", "kwh": -3.37 },
+                { "datetime": "2022-04-19T14:00:00.000-0400", "kwh": -3.17 },
+                { "datetime": "2022-04-19T15:00:00.000-0400", "kwh": -3.03 },
+                { "datetime": "2022-04-19T16:00:00.000-0400", "kwh": -1.84 },
+                { "datetime": "2022-04-19T17:00:00.000-0400", "kwh": -1.53 },
+                { "datetime": "2022-04-19T18:00:00.000-0400", "kwh": 0 },
+                { "datetime": "2022-04-19T19:00:00.000-0400", "kwh": 0.67 },
+                { "datetime": "2022-04-19T20:00:00.000-0400", "kwh": 0.78 },
+                { "datetime": "2022-04-19T21:00:00.000-0400", "kwh": 1.61 },
+                { "datetime": "2022-04-19T22:00:00.000-0400", "kwh": 1.83 },
+                { "datetime": "2022-04-19T23:00:00.000-0400", "kwh": 0.15 },
+                { "datetime": "2022-04-20T00:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2022-04-20T01:00:00.000-0400", "kwh": 0.17 },
+                { "datetime": "2022-04-20T02:00:00.000-0400", "kwh": 0.14 },
+                { "datetime": "2022-04-20T03:00:00.000-0400", "kwh": 0.16 },
+                { "datetime": "2022-04-20T04:00:00.000-0400", "kwh": 0.21 },
+                { "datetime": "2022-04-20T05:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2022-04-20T06:00:00.000-0400", "kwh": 0.17 },
+                { "datetime": "2022-04-20T07:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2022-04-20T08:00:00.000-0400", "kwh": 0.09 },
+                { "datetime": "2022-04-20T09:00:00.000-0400", "kwh": -0.69 },
+                { "datetime": "2022-04-20T10:00:00.000-0400", "kwh": -3.13 },
+                { "datetime": "2022-04-20T11:00:00.000-0400", "kwh": -4.93 },
+                { "datetime": "2022-04-20T12:00:00.000-0400", "kwh": -5.33 },
+                { "datetime": "2022-04-20T13:00:00.000-0400", "kwh": -5.13 },
+                { "datetime": "2022-04-20T14:00:00.000-0400", "kwh": -4.99 },
+                { "datetime": "2022-04-20T15:00:00.000-0400", "kwh": -5.03 },
+                { "datetime": "2022-04-20T16:00:00.000-0400", "kwh": -4.44 },
+                { "datetime": "2022-04-20T17:00:00.000-0400", "kwh": -2.92 },
+                { "datetime": "2022-04-20T18:00:00.000-0400", "kwh": -0.88 },
+                { "datetime": "2022-04-20T19:00:00.000-0400", "kwh": 0.28 },
+                { "datetime": "2022-04-20T20:00:00.000-0400", "kwh": 0.37 },
+                { "datetime": "2022-04-20T21:00:00.000-0400", "kwh": 0.28 },
+                { "datetime": "2022-04-20T22:00:00.000-0400", "kwh": 0.4 },
+                { "datetime": "2022-04-20T23:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2022-04-21T00:00:00.000-0400", "kwh": 0.15 },
+                { "datetime": "2022-04-21T01:00:00.000-0400", "kwh": 0.2 },
+                { "datetime": "2022-04-21T02:00:00.000-0400", "kwh": 0.27 },
+                { "datetime": "2022-04-21T03:00:00.000-0400", "kwh": 0.2 },
+                { "datetime": "2022-04-21T04:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2022-04-21T05:00:00.000-0400", "kwh": 0.17 },
+                { "datetime": "2022-04-21T06:00:00.000-0400", "kwh": 0.16 },
+                { "datetime": "2022-04-21T07:00:00.000-0400", "kwh": -0.28 },
+                { "datetime": "2022-04-21T08:00:00.000-0400", "kwh": -0.52 },
+                { "datetime": "2022-04-21T09:00:00.000-0400", "kwh": -1.25 },
+                { "datetime": "2022-04-21T10:00:00.000-0400", "kwh": -2.18 },
+                { "datetime": "2022-04-21T11:00:00.000-0400", "kwh": -4.36 },
+                { "datetime": "2022-04-21T12:00:00.000-0400", "kwh": -4.4 },
+                { "datetime": "2022-04-21T13:00:00.000-0400", "kwh": -2.84 },
+                { "datetime": "2022-04-21T14:00:00.000-0400", "kwh": -2.24 },
+                { "datetime": "2022-04-21T15:00:00.000-0400", "kwh": -4.07 },
+                { "datetime": "2022-04-21T16:00:00.000-0400", "kwh": -2.66 },
+                { "datetime": "2022-04-21T17:00:00.000-0400", "kwh": -0.33 },
+                { "datetime": "2022-04-21T18:00:00.000-0400", "kwh": 0.29 },
+                { "datetime": "2022-04-21T19:00:00.000-0400", "kwh": 0.37 },
+                { "datetime": "2022-04-21T20:00:00.000-0400", "kwh": 0.33 },
+                { "datetime": "2022-04-21T21:00:00.000-0400", "kwh": 0.27 },
+                { "datetime": "2022-04-21T22:00:00.000-0400", "kwh": 0.37 },
+                { "datetime": "2022-04-21T23:00:00.000-0400", "kwh": 0.24 },
+                { "datetime": "2022-04-22T00:00:00.000-0400", "kwh": 0.16 },
+                { "datetime": "2022-04-22T01:00:00.000-0400", "kwh": 0.15 },
+                { "datetime": "2022-04-22T02:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2022-04-22T03:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2022-04-22T04:00:00.000-0400", "kwh": 0.17 },
+                { "datetime": "2022-04-22T05:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2022-04-22T06:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2022-04-22T07:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2022-04-22T08:00:00.000-0400", "kwh": -0.06 },
+                { "datetime": "2022-04-22T09:00:00.000-0400", "kwh": -0.44 },
+                { "datetime": "2022-04-22T10:00:00.000-0400", "kwh": -2.51 },
+                { "datetime": "2022-04-22T11:00:00.000-0400", "kwh": -3.41 },
+                { "datetime": "2022-04-22T12:00:00.000-0400", "kwh": -3.92 },
+                { "datetime": "2022-04-22T13:00:00.000-0400", "kwh": -5.21 },
+                { "datetime": "2022-04-22T14:00:00.000-0400", "kwh": -4.97 },
+                { "datetime": "2022-04-22T15:00:00.000-0400", "kwh": -3.62 },
+                { "datetime": "2022-04-22T16:00:00.000-0400", "kwh": -2.99 },
+                { "datetime": "2022-04-22T17:00:00.000-0400", "kwh": -1.68 },
+                { "datetime": "2022-04-22T18:00:00.000-0400", "kwh": -0.88 },
+                { "datetime": "2022-04-22T19:00:00.000-0400", "kwh": 0.11 },
+                { "datetime": "2022-04-22T20:00:00.000-0400", "kwh": 0.31 },
+                { "datetime": "2022-04-22T21:00:00.000-0400", "kwh": 0.22 },
+                { "datetime": "2022-04-22T22:00:00.000-0400", "kwh": 0.31 },
+                { "datetime": "2022-04-22T23:00:00.000-0400", "kwh": 0.24 },
+                { "datetime": "2022-04-23T00:00:00.000-0400", "kwh": 0.18 },
+                { "datetime": "2022-04-23T01:00:00.000-0400", "kwh": 0.16 },
+                { "datetime": "2022-04-23T02:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2022-04-23T03:00:00.000-0400", "kwh": 0.19 },
+                { "datetime": "2022-04-23T04:00:00.000-0400", "kwh": 0.15 },
+                { "datetime": "2022-04-23T05:00:00.000-0400", "kwh": 0.24 },
+                { "datetime": "2022-04-23T06:00:00.000-0400", "kwh": 0.07 },
+                { "datetime": "2022-04-23T07:00:00.000-0400", "kwh": -0.39 },
+                { "datetime": "2022-04-23T08:00:00.000-0400", "kwh": -0.75 },
+                { "datetime": "2022-04-23T09:00:00.000-0400", "kwh": -1.67 },
+                { "datetime": "2022-04-23T10:00:00.000-0400", "kwh": -2.72 },
+                { "datetime": "2022-04-23T11:00:00.000-0400", "kwh": -4.77 },
+                { "datetime": "2022-04-23T12:00:00.000-0400", "kwh": -4.63 },
+                { "datetime": "2022-04-23T13:00:00.000-0400", "kwh": -4.61 },
+                { "datetime": "2022-04-23T14:00:00.000-0400", "kwh": -4.35 },
+                { "datetime": "2022-04-23T15:00:00.000-0400", "kwh": -4.96 },
+                { "datetime": "2022-04-23T16:00:00.000-0400", "kwh": -4.09 },
+                { "datetime": "2022-04-23T17:00:00.000-0400", "kwh": -2.42 },
+                { "datetime": "2022-04-23T18:00:00.000-0400", "kwh": -0.91 },
+                { "datetime": "2022-04-23T19:00:00.000-0400", "kwh": 0.15 },
+                { "datetime": "2022-04-23T20:00:00.000-0400", "kwh": 0.32 },
+                { "datetime": "2022-04-23T21:00:00.000-0400", "kwh": 0.31 },
+                { "datetime": "2022-04-23T22:00:00.000-0400", "kwh": 0.28 },
+                { "datetime": "2022-04-23T23:00:00.000-0400", "kwh": 0.28 }
+            ];
+
+            const withCrossings = [];
+            let prev = undefined;
+            for (let {datetime, kwh} of meteredUsage) {
+                datetime = new Date(datetime);
+                if (prev && ((prev.kwh < 0) !== (kwh < 0))) {
+                    const dKwh = kwh - prev.kwh;
+                    const dDt = datetime - prev.datetime; // 1 hour
+                    const slope = dKwh / dDt;
+                    const synthtime = new Date((Math.abs(prev.kwh / slope)) + prev.datetime.getTime());
+                    withCrossings.push({datetime: synthtime, kwh: 0});
+                }
+                const v = { datetime, kwh };
+                withCrossings.push(v);
+                prev = v;
+            }
+
+            const svg = d3.select("#grid-use-after")
+                .append("svg")
+                    .attr("height", height)
+                    .attr("width", width)
+
+            const y = d3.scaleLinear()
+                .domain([3, -6])
+                .range([0, height - bottomGutter ]);
+
+            const yAxis = d3.axisLeft(y).ticks(5);
+
+            svg.append("g")
+                .attr("transform", `translate(${leftGutter},0)`)
+                .call(yAxis);
+
+            const extent = [ withCrossings[0].datetime, withCrossings[meteredUsage.length - 1].datetime ];
+            const x = d3.scaleTime()
+                .domain(extent)
+                .range([0, width - leftGutter]);
+
+            const xAxis = d3.axisBottom(x)
+
+            svg.append("g")
+                .attr("transform", `translate(${leftGutter},${height - bottomGutter })`)
+                .call(xAxis);
+
+            const graph = svg.append("g")
+                .attr("transform", `translate(${leftGutter + 1},-1)`);
+
+            graph.append("path")
+                .datum(withCrossings)
+                .attr("fill", "steelblue")
+                .attr("stroke", "none")
+                .attr("stroke-width", 0)
+                .attr("d", d3.area()
+                    .x((d) => x(d.datetime))
+                    .y1((d) => d.kwh > 0 ? y(d.kwh) : y(0))
+                    .y0((d) => y(0))
+                );
+
+            graph.append("path")
+                .datum(withCrossings)
+                .attr("fill", "lightgreen")
+                .attr("stroke", "none")
+                .attr("stroke-width", 0)
+                .attr("d", d3.area()
+                    .x((d) => x(d.datetime))
+                    .y1((d) => d.kwh < 0 ? y(d.kwh) : y(0))
+                    .y0((d) => y(0))
+                );
+
+            graph.append("path")
+                .datum(withCrossings)
+                .attr("fill", "none")
+                .attr("stroke", "steelblue")
+                .attr("stroke-width", 1)
+                .attr("d", d3.line()
+                    .x((d) => x(d.datetime))
+                    .y((d) => y(d.kwh))
+                );
+        })();
+    </script>
+</body>
+</html>
