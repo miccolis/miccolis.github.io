@@ -128,8 +128,8 @@
 
             const svg = d3.select("#pjm-mix")
                 .append("svg")
-                    .attr("height", height)
-                    .attr("width", width);
+                    .attr("viewBox", `0 0 ${width} ${height}`)
+                    .attr("preserveAspectRatio", "none")
 
             const y = d3.scaleLinear()
                 .domain([100000, 0])
@@ -379,8 +379,8 @@
 
             const svg = d3.select("#grid-use-before")
                 .append("svg")
-                    .attr("height", height)
-                    .attr("width", width)
+                    .attr("viewBox", `0 0 ${width} ${height}`)
+                    .attr("preserveAspectRatio", "none")
 
             const y = d3.scaleLinear()
                 .domain([3, 0])
@@ -616,8 +616,8 @@
 
             const svg = d3.select("#grid-use-after")
                 .append("svg")
-                    .attr("height", height)
-                    .attr("width", width)
+                    .attr("viewBox", `0 0 ${width} ${height}`)
+                    .attr("preserveAspectRatio", "none")
 
             const y = d3.scaleLinear()
                 .domain([3, -6])
