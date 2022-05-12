@@ -12,10 +12,10 @@
     <section class="section">
     <div class="container">
         <h1 class="title">
-            Actual Cost of Natural Gas Emissions
+            Calculating the impact of burning natural gas
         </h1>
         <p class="subtitle">
-            <strong>Calculating the full affect of natural gas in my home</strong>
+            <strong>The leaks are worse than you'd think</strong>
         </p>
     </div>
     </section>
@@ -25,36 +25,36 @@
         <div class="column is-three-quarters">
             <div class="content">
                 <p>
-                Back in February the Washington Post ran a <a href="https://www.washingtonpost.com/dc-md-va/2022/02/23/dc-gas-leaks-sierra-club/" target="_blank">story about the number of gas leaks in DC</a>. It’s an alarming read; there are a lot of leaks &amp; many are potentially explosive. Naturally the natural gas utility here was happy to refer us all to the existing plan to start fixing these. They even have a name with clever capitalization; <a href="https://www.washingtongas.com/safety-education/safety/pipe-replacement-projects/projectpipes" target="_blank">PROJECTpipes</a>. A big, and for the most part ignored, question is whether fixing this infrastructure is a reasonable thing to do. Why don’t we look at the impact of continued natural gas use and compare that with the costs &amp; benefits of not burning it? I decided to start that analysis for my home.
+                Back in February the Washington Post ran a <a href="https://www.washingtonpost.com/dc-md-va/2022/02/23/dc-gas-leaks-sierra-club/" target="_blank">story about the number of natural gas leaks in DC</a>. It’s an alarming read; there are a lot of leaks &amp; many are potentially explosive. The natural gas utility was happy to refer us all to the existing plan to start fixing these, the cleverly capitalized <a href="https://www.washingtongas.com/safety-education/safety/pipe-replacement-projects/projectpipes" target="_blank">PROJECTpipes</a>. A big, and for the most part ignored, question is whether fixing this infrastructure is a reasonable thing to do. Why don’t we look at the impact of continued natural gas use and compare that with the costs &amp; benefits of not burning it? I decided to start that analysis for my home.
                 </p>
                 <p>
-                Like almost all row houses in DC, mine is hooked up to natural gas. We use it to run our stove, hot water and the furnace for radiant heat. Of course this bugs me. I want switch everything over to electric, but a lifetime of exposure to terrible electric cook-tops while living luxuriously with radiant heat has kept this project deferred. However, I do value the environment more than my gas stove. So I downloaded my natural gas info from the utility here in DC, Washington Gas to figure out the impact of burning natural gas in my home.
+                Like almost all row houses in DC, mine is hooked up to natural gas. We use it to run our stove, hot water and the furnace for radiant heat. Of course this bugs me. I want to switch everything over to electric, but a lifetime of exposure to terrible electric cook-tops has kept this project deferred. However, I do value the environment more than my gas stove. So I downloaded my natural gas info from the utility here, Washington Gas, to figure out the impact of burning natural gas in my home.
                 </p>
                 <p>
-                After reading that story  in the Post I want to include the environmental impact from leaked gas that is proportional to my use. I’m gonna estimate leakage of 4%. It’s hard to say if this is accurate or not. According to the <a href="https://www.bloomberg.com/features/2022-methane-leaks-natural-gas-energy-emissions-data/" target="_blank">EPA the figure is 1.4%, but everyone seems to agree that the methodology behind that number is “deeply flawed”</a>. I’ve seen estimates as high as 10%, but I wanted to stay a bit conservative. So 4% it is.
+                After reading that story in the Post I want to understand how much leaked gas adds to the environmental impact of using gas in my home. According to the <a href="https://www.bloomberg.com/features/2022-methane-leaks-natural-gas-energy-emissions-data/" target="_blank">EPA the figure is 1.4%, but everyone seems to agree that the methodology behind that number is “deeply flawed”</a>. I’ve seen estimates as high as 10%, but I wanted to stay a bit conservative. I’m gonna split the difference and estimate leakage at 4%.
                 </p>
             </div>
             <div class="content">
                 <div id="therms-used"></div>
-                <div class="is-size-7">Monthly therms used, May 2020 - April 2022. Download from washingtongas.com </div>
+                <div class="is-size-7">Monthly therms used by billing month, May 2020 - April 2022. Retrieved from washingtongas.com </div>
             </div>
             <div class="content">
                 <p>
-                Natural gas is not a specific chemical compound. It’s a a mixture of gases that is at least 80% methane. It can also contain up to 10% ethane, no more than 5% propane and less than 2% butane. Other trace gases can also be present, but I’m gonna keep my calculations simple and ignore the non-methane content for now. methane is bad enough.
+                Natural gas is not a specific chemical compound. It’s a a mixture of gases that is at least 80% methane. It can also contain up to 10% ethane, no more than 5% propane and less than 2% butane. Other trace gases can also be present, but I’m gonna keep my calculations simple and ignore the non-methane content for now. Methane is bad enough.
                 </p>
                 <p>
-To figure out the carbon footprint and warming potential of burning natural gas is pretty easy; 1 Therm produces ~11.7 lbs of CO2. The other half of the equation is the leaked gas, which again, is mostly methane. This is a bit more difficult as methane an extremely potent green house gas that has a half-life of 8.6 years once it’s in the atmosphere.
+The carbon footprint of burning natural gas is well known; 1 Therm produces ~11.7 lbs of CO2. The other half of the equation is the leaked gas, which again, is mostly methane. While an extremely potent green house gas, methane decays more rapidly than CO2. It has a half-life of 8.6 years once it’s in the atmosphere. This makes it difficult to compare to the more static presence of CO2.
                 </p>
             </div>
 
             <div class="content">
                 <div id="methane-halflife"></div>
-                <div class="is-size-7">Decay curve of methane's 8.6 year half-life</div>
+                <div class="is-size-7">Decay curve of methane's 8.6 year half-life &amp; CO2's 50 year half-life</div>
             </div>
 
             <div class="content">
                 <p>
-                It's a bit difficult to compare this relatively rapid decay with the more static impact of CO2. The <a href="https://climate.mit.edu/ask-mit/why-do-we-compare-methane-carbon-dioxide-over-100-year-timeframe-are-we-underrating" target="_blank">two figures I’ve seen</a> to describe this use different timescales;
+                 The <a href="https://climate.mit.edu/ask-mit/why-do-we-compare-methane-carbon-dioxide-over-100-year-timeframe-are-we-underrating" target="_blank">two figures I’ve seen</a> to describe this use different timescales;
                 </p>
                 <ul>
                     <li>Over 20 years methane is 80 times as damaging as CO2</li>
@@ -64,25 +64,24 @@ To figure out the carbon footprint and warming potential of burning natural gas 
 
             <div class="content">
                 <p>
-                Because the climate catastrophe is happening now, we’ll use the 20 year figure. For every therm I consume, I assume 0.04 therms have leaked out before getting to my home. Of that 80% is methane, which is 80x as damaging as the same volume of CO2.
+                Because the climate catastrophe is happening now, we’ll use the 20 year figure. For every therm I consume, I assume 0.04 therms have leaked out before getting to my home. Of that, 80% is methane, which is 80x as damaging as the same volume of CO2.
                 </p>
             </div>
-
 
             <div class="content">
                 <div id="footprint"></div>
-                <div class="is-size-7">Monthly lbs CO2 equivalent emissions, May 2020 - April 2022.</div>
+                <div class="is-size-7">Monthly lbs CO2 equivalent emissions by billing month, May 2020 - April 2022.</div>
             </div>
 
             <div class="content">
                 <p>
-                The impact of using natural gas in my home is basically twice as bad as I’d previously assumed. The warming impact of the gas that I don’t even burn is nearly as bad that what I do burn.
+                The impact of using natural gas in my home is basically twice as bad as I’d previously assumed. The warming impact of the gas that I don’t even burn is nearly as bad as what I do burn.
                 </p>
                 <p>
-                I’d previously looked at the <a href="https://miccolis.github.io/posts/2022-05-09-carbon-emissions-solar.html">carbon footprint of my electricity for a single week in April</a>, where I generated ~22 lbs of CO2. To compare with natural gas figures I’m going to extrapolate that up to a month scale. And I’ll round up and call it 100lbs of CO2.
+                I previously looked at the <a href="https://miccolis.github.io/posts/2022-05-09-carbon-emissions-solar.html">carbon footprint of my electricity for a single week in April</a>, where I generated ~22 lbs of CO2. To compare with my monthly natural gas bill I’m going to extrapolate that up to a month. It comes out to about 100 lbs of CO2.
                 </p>
                 <p>
-                Looking at the natural gas I used in April 2021 (from my May 2021 bill, which I’m using because I don’t have this May bill yet) the output of burning it was 155 lbs of CO2, plus 144 lbs in CO2 equivalent emissions from leaked methane. A total footprint of 299 lbs for hot water and cooking a meal or two a day. That is three times the footprint of the electricity I consume from the grid for the same period.
+                Burning natural gas I used in April 2021 generated 155 lbs of CO2. The leaked methane caused 144 lbs in CO2 equivalent emissions. A total footprint of 299 lbs for hot water and cooking a meal or two a day. That is three times the footprint of the electricity I consume from the grid for the same period.
                 </p>
             </div>
         </div>
@@ -224,7 +223,7 @@ To figure out the carbon footprint and warming potential of burning natural gas 
 
                 const bottomGutter = 20;
                 const leftGutter = 40;
-                const paddingRight = 160;
+                const paddingRight = 20;
 
                 const svg = d3.select("#methane-halflife")
                     .append("svg")
@@ -251,30 +250,72 @@ To figure out the carbon footprint and warming potential of burning natural gas 
                     .attr("transform", `translate(${leftGutter},${height - bottomGutter })`)
                     .call(xAxis);
 
-                let amount = 1;
-                const data = [ { year: 0, amount: 1 }];
-                for (let year = 8.6; year < 110; year += 8.5)  {
-                    amount = amount / 2 
-                    data.push({ amount, year});
+                function halfLifePoints(halfLife) {
+                    let amount = 1;
+                    const data = [ { year: 0, amount: 1 }];
+                    for (let year = halfLife; year < 110; year += halfLife)  {
+                        amount = amount / 2 
+                        data.push({ amount, year});
+                    }
+                    return data;
                 }
 
                 const graph = svg.append("g")
-                    .attr("transform", `translate(${leftGutter + 1},-1)`);
+                    .attr("transform", `translate(${leftGutter + 1},-1)`)
+                    .attr("clip-path",  "inset(0 21 0 0)");
 
                 graph.append("path")
-                    .datum(data)
+                    .datum(halfLifePoints(8.6))
                     .attr("fill", "none")
-                    .attr("stroke", "steelblue")
+                    .attr("stroke", "salmon")
                     .attr("stroke-width", 1.5)
                     .attr("d", d3.line()
                         .x((d) => x(d.year))
                         .y((d) => y(d.amount))
                         .curve(d3.curveNatural)
                     );
+
+                graph.append("path")
+                    .datum(halfLifePoints(50))
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", d3.line()
+                        .x((d) => x(d.year))
+                        .y((d) => y(d.amount))
+                        .curve(d3.curveBasis)
+                    );
+
+                const legend = svg.append("g").attr("font-size", 10)
+                    .attr("transform", `translate(50, 7)`);
+
+                let offset = 520;
+                for (const [label, color] of [
+                    [ 'CO2', 'steelblue' ],
+                    [ 'Methane', 'salmon' ]
+                ]) {
+                    const item = legend
+                        .append("g")
+                        .attr("transform", (d, i) => `translate(${offset}, 0)`);
+
+                    item.append("circle")
+                            .attr("fill", color)
+                            .attr("stroke", "dimgrey")
+                            .attr("stroke-width", "1")
+                            .attr("r", 5)
+                            .attr("x", 3);
+
+                    item.append("text")
+                            .text(label)
+                            .attr("x", 10)
+                            .attr("y", 4);
+
+                   offset += 50;
+                }
             })();
 
             (() => {
-                const height = 160;
+                const height = 180;
                 const width = 700;
 
                 const bottomGutter = 20;
@@ -285,7 +326,6 @@ To figure out the carbon footprint and warming potential of burning natural gas 
                     co2: thermsUsed * 11.66466, // 1.000 therms = 11.66466 C02 lbs
                     methane: thermsUsed * 4.25 * 0.8 * leakRate * 80
                 }));
-                console.log(data);
 
                 const svg = d3.select("#footprint")
                     .append("svg")
