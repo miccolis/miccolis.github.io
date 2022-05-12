@@ -155,7 +155,7 @@
             const legend = svg.append("g").attr("font-size", 10)
                 .attr("transform", `translate(${width - rightGutter + 30}, -5)`);
 
-            legendHeight = byFuelType.fuelTypes.length * 14;
+            const legendHeight = byFuelType.fuelTypes.length * 14;
             const fuels = legend.selectAll("g").data(byFuelType.fuelTypes)
                 .enter()
                 .append("g")
