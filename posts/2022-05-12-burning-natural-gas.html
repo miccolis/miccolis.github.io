@@ -31,7 +31,7 @@
                 Like almost all row houses in DC, mine is hooked up to natural gas. We use it to run our stove, hot water and the furnace for radiant heat. Of course this bugs me. I want to switch everything over to electric, but a lifetime of exposure to terrible electric cook-tops has kept this project deferred. However, I do value the environment more than my gas stove. So I downloaded my natural gas info from the utility here, Washington Gas, to figure out the impact of burning natural gas in my home.
                 </p>
                 <p>
-                After reading that story in the Post I want to understand how much leaked gas adds to the environmental impact of using gas in my home. According to the <a href="https://www.bloomberg.com/features/2022-methane-leaks-natural-gas-energy-emissions-data/" target="_blank">EPA the figure is 1.4%, but everyone seems to agree that the methodology behind that number is “deeply flawed”</a>. I’ve seen estimates as high as 10%, but I wanted to stay a bit conservative. I’m gonna split the difference and estimate leakage at 4%.
+                After reading that story in the Post I want to understand how much leaked gas adds to the environmental impact of using gas in my home. According to the <a href="https://www.bloomberg.com/features/2022-methane-leaks-natural-gas-energy-emissions-data/" target="_blank">EPA the figure is 1.4%, but everyone seems to agree that the methodology behind that number is “deeply flawed”</a>. The folks at the Global Energy Monitor did a <a href="https://globalenergymonitor.org/projects/the-gas-index/" target="_blank">study of US cities</a> and found that DC's leak rate, accouting for everything from production to appliace loses, was 2.3%.
                 </p>
             </div>
             <div class="content">
@@ -75,13 +75,13 @@ The carbon footprint of burning natural gas is well known; 1 Therm produces ~11.
 
             <div class="content">
                 <p>
-                The impact of using natural gas in my home is basically twice as bad as I’d previously assumed. The warming impact of the gas that I don’t even burn is nearly as bad as what I do burn.
+                The impact of using natural gas in my home is basically 50% worse than I’d previously assumed. The gas I don't even burn contributes significantly to the warming impact of using natural gas.
                 </p>
                 <p>
                 I previously looked at the <a href="https://miccolis.github.io/posts/2022-05-09-carbon-emissions-solar.html">carbon footprint of my electricity for a single week in April</a>, where I generated ~22 lbs of CO2. To compare with my monthly natural gas bill I’m going to extrapolate that up to a month. It comes out to about 100 lbs of CO2.
                 </p>
                 <p>
-                Burning natural gas I used in April 2021 generated 155 lbs of CO2. The leaked methane caused 144 lbs in CO2 equivalent emissions. A total footprint of 299 lbs for hot water and cooking a meal or two a day. That is three times the footprint of the electricity I consume from the grid for the same period.
+                Burning natural gas I used in April 2021 generated 155 lbs of CO2. The leaked methane caused 80 lbs in CO2 equivalent emissions. A total footprint of 235 lbs for hot water and cooking a meal or two a day. That's just over 2 times the footprint of the electricity I consume from the grid for the same period.
                 </p>
             </div>
         </div>
@@ -124,7 +124,7 @@ The carbon footprint of burning natural gas is well known; 1 Therm produces ~11.
                 {"billMonth": "05/01/2020", "thermsUsed": 27.9}
             ];
 
-            const leakRate = 0.04;
+            const leakRate = 0.022;
 
             (() => {
                 const height = 100;
@@ -315,7 +315,7 @@ The carbon footprint of burning natural gas is well known; 1 Therm produces ~11.
             })();
 
             (() => {
-                const height = 180;
+                const height = 160;
                 const width = 700;
 
                 const bottomGutter = 20;
@@ -333,7 +333,7 @@ The carbon footprint of burning natural gas is well known; 1 Therm produces ~11.
                         .attr("preserveAspectRatio", "none")
 
                 const y = d3.scaleLinear()
-                    .domain([2500, 0])
+                    .domain([1800, 0])
                     .range([0, height - bottomGutter ]);
 
                 const yAxis = d3.axisLeft(y).ticks(5);
