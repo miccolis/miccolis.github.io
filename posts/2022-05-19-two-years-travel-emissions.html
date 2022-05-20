@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Carbon costs of two years of travel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+    <section class="section">
+    <div class="container columns">
+        <div class="column is-three-quarters pb-0">
+            <h1 class="title">
+                Carbon costs of two years of travel
+            </h1>
+            <p class="subtitle">
+                <strong>And how airplanes compare to driving</strong>
+            </p>
+        </div>
+    </div>
+    </section>
+
+    <section class="section pt-0">
+    <div class="container columns">
+        <div class="column is-three-quarters">
+            <div class="content">
+                <p>
+One of the big surprises of the pandemic was how everybody got worse at driving. Case in point, my Prius was totaled on a road with no other traffic except a single moving truck. Whether the driver just didn’t see my car or “totally could have made it” in an normal car, seemed to vary moment-to-moment once the police showed up. Either way, at the end of April 2020 we ended up with a "new to us" car. The point of this story is that, because I bought a car I have a record of the miles it had just about 2 years ago.
+                </p>
+                <p>
+The 2020 Toyota Corolla Hybrid we purchased had 16,021 miles on it. Its best feature is that it’s red, which my kids like. Also, we get an average of 53 mpg. In the almost exactly 2 years since purchasing it we’ve put 12,619 miles on the car. To get those miles we’ve burned 238 gallons of gas and generated 4,760 lbs of CO2.
+                </p>
+                <p>
+In that same time, despite the pandemic, my family has take a handful of flights. All four of us went to a wedding in Denver, Colorado and my wife went solo to visit family in Fort Wayne, Indiana. All of our flights were on economy seats in on full flights. Which is great in terms of carbon footprint, but wow, does that make for a stressful COVID-era flight. Especially with the kids.
+                </p>
+            </div>
+
+            <div class="content">
+                <div id="travel-emissions"></div>
+                <div class="is-size-7">CO2 equivalent emissions from travel, May 2020 - May 2022</div>
+            </div>
+
+            <div class="content">
+                <p>
+The flight to Denver was on Frontier, an airline basically everyone loves to rag on, but they do fly direct to from DCA to DEN. Also, they have modern, fuel efficient, planes. According to <a href="https://support.google.com/travel/answer/9671620?hl=en" target="_blank">google flights</a>, one seat in each direction is responsible for 192 kg of CO2 equivalent emissions.  For all 8 legs that would be 3,386 lbs CO2e.
+                </p>
+                <p>
+I heard somewhere that driving long distance alone is effectively the same emissions as a flight. This is counter to my intuition, so I’ve got to explore the question; what if we drove? …ignoring the pain that would come along with a DC to Denver drive with young kids.
+                </p>
+            </div>
+            <div class="content">
+                <div id="denver-emissions"></div>
+                <div class="is-size-7">CO2 equivalent emissions, in lbs</div>
+            </div>
+
+            <div class="content">
+                <p>
+This DC to Denver and back road trip is 1,654 miles each way. Total emissions of 1,248 lbs of CO2. Given that we can pack 4 people into our car it would have been much more efficient to drive, but interestingly it’s not so clear for a single person. It seems like the crammed Frontier flight would have actually be more environmentally responsible! I am surprised!
+                </p>
+                <p>
+Part of me wants to explore the carbon footprint of taking the bus, I’m sure it’s much less. But a bus, or even driving really, to Denver is not actually feasible given my real-life constraints. It’s a 38 hour trip on Greyhound which has 4 transfers. The drive time if we took our own car is ~24 hours. We have 2 small kids, it would take far longer.  Given the standard American PTO that we have, a week long trip is about all we can do. If we drove most of that time would be spent in transit. We just wouldn’t make the trip.
+                </p>
+                <p>
+My wife’s trip to Fort Wayne was through Chicago and each direction generated 209 kg CO2, the average according to google flights. Both directions together are 922 lbs of CO2. For comparisons sake I went looking for a direct flight. Such a flight doesn’t exist from the DC area, but it does from Philadelphia. Not a direct comparison,  but that flight generates 173 kg of CO2. To get to an actual comparison we’d need to account for the 128 mile drive from DC to Philadelphia International Airport, and back.
+                </p>
+            </div>
+            <div class="content">
+                <div id="fort-wayne-emissions"></div>
+                <div class="is-size-7">CO2 equivalent emissions, in lbs</div>
+            </div>
+
+            <div class="content">
+                <p>
+Driving to Fort Wayne and back is 552 miles each direction for 416 lbs of CO2. This compares more favorably to flying than it did looking at Denver. Here we’re really seeing the cost of the indirectness of the travel and the less efficient older and smaller planes that get flown to Fort Wayne. That a direct flight from an airport over a hundred miles away emits less carbon is also a bit of a surprise.
+                </p>
+                <p>
+All told my family generated an effective 9,064 lbs of CO2 with our travel over the last 2 years. As compared to our normal daily activities, the times when we travel significant distance are really the most carbon intensive things we do. Nowhere else in our lives to we generate this level of emissions in such short periods of time.
+                </p>
+            </div>
+
+        </div>
+        <div class="column">
+            <div class="content">
+                <h4 class="mb-1">Jeff Miccolis</h4>
+                <div class="is-size-7">
+                    <a href="https://mastodon.social/@miccolis">mastodon.social/@miccolis</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    <script>
+        // Emissions pie chart
+        (() => {
+            const values = [
+                {
+                    // TODO these are for indianapolis...
+                    name: 'Fort Wayne',
+                    value:  209 * 2 * 2.204623 // emissions * legs * lbs-per-kg
+                },
+                {
+                    name: 'Denver',
+                    value: 192 * 8 * 2.204623 // emissions * legs * lbs-per-kg
+                },
+                {
+                    name: 'Driving',
+                    value: (28624 - 16021) / 53 * 20 // miles-now - miles-before / mpg * co2-per-gallon
+                }
+            ];
+
+            const height = 140;
+            const width = 700;
+
+            const topBuffer = 10
+            const radius = height - topBuffer;
+
+            const svg = d3.select("#travel-emissions")
+                .append("svg")
+                    .attr("viewBox", `0 0 ${width} ${height}`)
+                    .attr("preserveAspectRatio", "none")
+
+            const g = svg.append('g').attr("transform", `translate(${width / 2},${radius + topBuffer})`);
+
+            const pie = d3.pie()
+                .value(d => d.value)
+                .startAngle(-0.5 * Math.PI)
+                .endAngle(0.5 * Math.PI);
+
+            const chart = pie(values);
+
+            const arc = d3.arc()
+                        .innerRadius(radius * 0.4)
+                        .outerRadius(radius);
+
+            const arcs = g.selectAll(".arc")
+                        .data(chart)
+                        .enter()
+                        .append("g")
+                        .attr("class", "arc");
+
+            // Draw arc paths
+            arcs.append("path")
+                .attr("fill", (d, i) => d3.schemeSet3[i])
+                .attr("stroke", "dimgrey")
+                .attr("stroke-width", "1.5")
+                .attr("d", arc);
+
+
+            const labels = g.selectAll(".text")
+                .data(chart)
+                .enter()
+                .append("g")
+                .attr("class", "text");
+
+            // Draw labels
+            const label = labels.append('g')
+                .attr("transform", d => `translate(${arc.centroid(d)})`) // TODO better position for ft wayne
+                .attr("font-size", 10);
+
+            label.append("text")
+                .text(d => d.data.name)
+                .attr("text-anchor",  "middle")
+
+            label.append("text")
+                .text(d => `${d.data.value.toFixed()} lbs`)
+                .attr("text-anchor",  "middle")
+                .attr("dy",  10)
+
+        })();
+
+        // Denver
+        (() => {
+            const flyingData = [
+                {
+                    name: "My seat",
+                    value: 192 * 2 * 2.204623 // emissions * legs * lbs-per-kg
+                },
+                {
+                    name: "Seats for the spouse and kids",
+                    value: 192 * 6 * 2.204623 // emissions * legs * lbs-per-kg
+                }
+            ].map((v, i, arr)=> {
+                if (i === 0) {
+                    v.offset = 0;
+                } else {
+                    v.offset = arr[i - 1].offset + arr[i - 1].value;
+                }
+                return v;
+            });
+
+            const drivingData = [
+                {
+                    name: "Driving", 
+                    value: 1654 / 53 * 2 * 20 // miles / mpg * legs * co2-per-gallon
+                }
+            ];
+
+
+            const height = 75;
+            const width = 700;
+            const barHeight = 20;
+
+            const leftGutter = 60;
+            const rightGutter = 20;
+            const bottomGutter = 20;
+
+            const svg = d3.select("#denver-emissions")
+                .append("svg")
+                    .attr("viewBox", `0 0 ${width} ${height}`)
+                    .attr("preserveAspectRatio", "none")
+
+            const x = d3.scaleLinear()
+                .domain([0, 3500])
+                .range([0, width - leftGutter - rightGutter]);
+
+            const xAxis = d3.axisBottom(x);
+
+            svg.append("g")
+                .attr("transform", `translate(${leftGutter},${height - bottomGutter})`)
+                .call(xAxis);
+
+            const flightBars = svg.append("g")
+                .attr("transform", `translate(${leftGutter}, 5)`)
+                .selectAll("rect")
+                .data(flyingData)
+                .enter()
+                    .append("g")
+                    .attr("transform", d => `translate(${x(d.offset)}, 0)`);
+
+            flightBars.append("rect")
+                    .attr("height", barHeight)
+                    .attr("width", d => x(d.value))
+                    .attr("fill", (d, i) => d3.schemeSet3[i])
+                    .attr("stroke", 'dimgrey')
+                    .attr("stroke-width", 1.5);
+
+            flightBars.append("text")
+                .text(d => d.name)
+                .attr("font-size", 10)
+                .attr("x", 10)
+                .attr("y", 12.5)
+
+
+            svg.append("g")
+                .attr("transform", `translate(5, ${17.5})`)
+                .append("text")
+                .attr("font-size", 10)
+                .text("Flying");
+
+            svg.append("g")
+                .attr("transform", `translate(${leftGutter}, ${10 + barHeight})`)
+                .selectAll("rect")
+                .data(drivingData)
+                .enter()
+                    .append("rect")
+                    .attr("height", barHeight)
+                    .attr("width", d => x(d.value))
+                    .attr("x", d => x(d.offset))
+                    .attr("fill", (d, i) => d3.schemeSet3[i+2])
+                    .attr("stroke", 'dimgrey')
+                    .attr("stroke-width", 1.5);
+
+            svg.append("g")
+                .attr("transform", `translate(5, ${22.5 + barHeight})`)
+                .append("text")
+                .attr('font-size', 10)
+                .text("Driving")
+
+        })();
+
+        // Fort Wayne
+        (() => {
+            const data = [
+                {
+                    name: "1 Stop",
+                    value: 209 * 2 * 2.204623 // emissions * legs * lbs-per-kg
+                },
+                {
+                    name: "From PHL",
+                    values: [
+                        {
+                            name: "Drive",
+                            value: 128 / 53 * 2 * 20 // miles / mpg * legs * co2-per-gallon
+                        },
+                        {
+                            name: "Flight",
+                            value: 173 * 2 * 2.204623 // emissions * legs * lbs-per-kg
+                        }
+                    ]
+                },
+                {
+                    name: "Driving", 
+                    value: 552 / 53 * 2 * 20 // miles / mpg * legs * co2-per-gallon
+                }
+            ];
+
+            const height = 100;
+            const width = 700;
+            const barHeight = 20;
+
+            const leftGutter = 60;
+            const rightGutter = 20;
+            const bottomGutter = 20;
+
+            const svg = d3.select("#fort-wayne-emissions")
+                .append("svg")
+                    .attr("viewBox", `0 0 ${width} ${height}`)
+                    .attr("preserveAspectRatio", "none")
+
+            const x = d3.scaleLinear()
+                .domain([0, 1000])
+                .range([0, width - leftGutter - rightGutter]);
+
+            const xAxis = d3.axisBottom(x);
+
+            svg.append("g")
+                .attr("transform", `translate(${leftGutter},${height - bottomGutter})`)
+                .call(xAxis);
+
+            const flightBars = svg.append("g")
+                .attr("transform", `translate(${leftGutter}, 5)`)
+                .selectAll("g")
+                .data(data)
+                .enter()
+                    .append("g")
+                    .attr("transform", (d, i) => `translate(0, ${i * (barHeight + 5)})`);
+
+            let i = 0;
+            for (const elem of flightBars) {
+                const d = elem.__data__;
+                if (d.value !== undefined) {
+                    d3.select(elem)
+                        .append('rect')
+                        .attr('height', barHeight)
+                        .attr('width', x(d.value))
+                        .attr("fill", d3.schemeSet3[i])
+                        .attr("stroke", 'dimgrey')
+                        .attr("stroke-width", 1.5);
+
+                } else if (d.values !== undefined) {
+                    const selection = d3.select(elem);
+                    let offset = 0;
+                    for (const v of d.values) {
+                        const detail = selection
+                            .append("g")
+                            .attr("transform", `translate(${offset}, 0)`);
+                        detail.append('rect')
+                            .attr('height', barHeight)
+                            .attr('width', x(v.value))
+                            .attr("fill", d3.schemeSet3[i])
+                            .attr("stroke", 'dimgrey')
+                            .attr("stroke-width", 1.5);
+
+                        offset += x(v.value);
+                        i++;
+                    }
+                }
+                i++;
+            }
+
+            svg.append("g")
+                .attr('font-size', 10)
+                .attr("transform", 'translate(0, 17.5)')
+                .selectAll("text")
+                .data(data)
+                .enter()
+                    .append("text")
+                    .text(d => d.name)
+                    .attr('y', (d, i) => i * 25)
+
+        })();
+    </script>
+</body>
+</html>
