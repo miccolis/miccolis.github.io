@@ -46,6 +46,6 @@ As the tour wrapped up the construction manager talked about how her people are 
 
 <div class="is-size-7">
 <ol>
-<li  id="footnote-1">During the tour we were told this was the second passive house in DC, but that seems like it may not be strictly correct. <a href="https://dc.urbanturf.com/articles/blog/dcs_first_passive_house_almost_complete/5601">I stumbled about a article about the first passive house in DC from way back in 2012</a></li>
+<li  id="footnote-1">During the tour we were told this was the second passive house in DC, but that seems like it may not be strictly correct. <a href="https://dc.urbanturf.com/articles/blog/dcs_first_passive_house_almost_complete/5601">I stumbled about a article about the first passive house in DC from way back in 2012</a> and a <a href="https://www.elevationdcmedia.com/devnews/weinbergcommons_110714.aspx">case-study about the first multi-family passive house building in 2014</a>.</li>
 </ol>
 </div>
