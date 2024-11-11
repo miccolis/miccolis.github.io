@@ -1,6 +1,7 @@
 ---
 layout: default
 subtitle: There are things to do now and doing them is important
+tag: climate
 ---
 
 Everyone I know is worried about climate change, yet many of them also feel powerless to do anything about it. It’s true that there are large systems at work that most individuals cannot directly influence. That the government policy that would transition us to a carbon neutral economy has not materialized. Still, these are not reasons to do nothing. The problem of climate change is a continuum. Every bit we do to control the amount of carbon in the atmosphere give us more time to improve, adapt and ultimately save lives.

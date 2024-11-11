@@ -4,6 +4,7 @@ subtitle: The District of Columbia’s SREC market has high enough prices to rea
 scripts: 
     - d3.v7.min.js
     - 2022-10-31-getting-credit-for-rooftop-solar.js
+tag: climate
 ---
 
 One of the first questions homeowners have when considering solar panels is, do these actually pay for themselves? Quickly followed by, ok, but how long will that take? Homeowners want to hear an answer that is around 5 years or less. In DC the answer is often right in this sweet spot.

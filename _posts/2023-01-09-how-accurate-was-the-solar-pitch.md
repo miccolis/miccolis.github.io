@@ -4,6 +4,7 @@ subtitle: Can I trust this Solar guy? ...or was it all just hype?
 scripts: 
     - d3.v7.min.js
     - 2023-01-09-how-accurate-was-the-solar-pitch.js
+tag: climate
 ---
 
 The solar system on my house has been running for a year. Aside from an incident where a HVAC contractor accidentally disconnected a panel, the system has been working great. Making the decision to install solar panels was conceptually easy, but felt financially risky. Now that I have a year of data, I really wanted to know, how close to reality was the pitch I got from my solar installer?

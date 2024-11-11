@@ -1,6 +1,7 @@
 ---
 layout: default
 subtitle: Visiting an under-construction Passivhaus with the DC chapter of the Sierra Club
+tag: climate
 ---
 
 A couple years back I’d read about the [Passivhaus](https://en.wikipedia.org/wiki/Passive_house) standard online and found it fascinating. The idea, as I understood it, was to be so serious about the “building envelope” that the primary concern of the HVAC system would be getting CO<sub>2</sub> out and oxygen in. These buildings would be super insulated and extremely air-tight. Heating and cooling is no longer the biggest concern for HVAC systems in a Passivhaus. The new concern is ‘indoor air quality’, AKA not suffocating in the carbon dioxide you breathed out.

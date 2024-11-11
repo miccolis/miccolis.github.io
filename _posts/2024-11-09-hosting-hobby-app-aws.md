@@ -2,6 +2,7 @@
 layout: default
 title: On Hosting A Hobby Web App On AWS
 subtitle: …and not about interesting space filling curves, like I wanted to write
+tag: technology
 ---
 Back at [Mapbox](https://www.mapbox.com/) I worked about a bunch of interesting geospatial tools in addition to the nuts and bolts of building a SaaS product. I also did a lot of other stuff, much of which I’ve continued to do in my roles since then. But that particular combination of fun geospatial problem solving and getting a service off the ground - I’ve missed that and wanted to revisit it.
 

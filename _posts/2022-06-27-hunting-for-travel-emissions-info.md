@@ -1,6 +1,7 @@
 ---
 layout: default
 subtitle: Beyond cars & planes, data on the carbon footprint of travel modes in the US is hard to find.
+tag: climate
 ---
 
 The “Our World in Data” website has this nice chart about the [eCO2 emissions for various travel modes in Europe](https://ourworldindata.org/grapher/carbon-footprint-travel-mode).  It does a great job of breaking out important differences within a mode of transit (e.g. diesel vs petrol) and making the impact per kilometer really clear.

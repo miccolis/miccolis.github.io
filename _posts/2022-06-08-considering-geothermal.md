@@ -4,6 +4,7 @@ subtitle: The emissions and cost impact of reducing natural gas consumption
 scripts: 
     - d3.v7.min.js
     - 2022-06-08-considering-geothermal.js
+tag: climate
 ---
 Until recently I thought geothermal systems were only possible if you lived in a place with volcanic activity. Somewhere where molten lava wasn’t far from the surface, Iceland maybe.  What I've learned is that even if you don’t live in Iceland, using the earth for heat is still doable. Geothermal systems move heat from, and into, the ground using a heat pump.  A geothermal heat pump (also called ‘ground source’ as opposed to ‘air source,’ which is the more usual kind) circulates coolant through pipes that run underground. These systems can pull heat from the ground to warm your house, or shove heat down there when it’s too hot. 
 

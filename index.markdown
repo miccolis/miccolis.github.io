@@ -5,10 +5,15 @@ layout: home
 <ul>
     {% for post in site.posts %}
         <li class="content">
-            <div class="is-size-5">
-                <a href="{{ post.url }}">{{post.title}}</a>
+            <div >
+                <a class="is-size-5" href="{{ post.url }}">{{post.title}}</a>
             </div>
-            <div class="is-size-6 has-text-grey">{{ post.date | date: "%Y-%m-%d" }}</div>
+            <div>
+                <span class="is-size-6 has-text-grey">{{ post.date | date: "%Y-%m-%d" }}</span>
+                {% for tag in post.tags %}
+                <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            </div>
         </li>
     {% endfor %}
 </ul>
