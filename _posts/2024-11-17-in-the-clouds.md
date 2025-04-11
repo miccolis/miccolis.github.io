@@ -4,7 +4,7 @@ title: In the Clouds Since 2007
 subtitle: How simplicity of early AWS was really nice
 tag: technology
 ---
-I was in San Francisco earlier this year for the first time since the pandemic. Despite a busy work schedule I managed to reconnect with a few friends and caught up on everything: met kids, talked politics & tech, got pitches a bunch of ideas, etc… A friend and former colleague asked if I still used AWS at my current company. Which, yes, we do. Then we got to talking about how pivotal it was when we started Mapbox and he asked if I remembered what year we started using AWS.
+I was in San Francisco earlier this year for the first time since the pandemic. Despite a busy work schedule I managed to reconnect with a few friends and caught up on everything: met kids, talked politics & tech, got pitched a bunch of ideas, etc… A friend and former colleague asked if I still used AWS at my current company. Which, yes, we do. Then we got to talking about how pivotal it was when we started Mapbox and he asked if I remembered what year we started using AWS.
 
 I suggested 2008, which seemed about right. I remember him staying “that would have been really early.” It was, in fact, [really early](https://en.wikipedia.org/wiki/Timeline_of_Amazon_Web_Services). In those days AWS accounts and Amazon.com accounts weren’t firmly separated. I knew I had some really old resources attached to my Amazon.com account, so I went to look or the earliest bucket. It was from 2007.
 
