@@ -26,7 +26,7 @@
         <div class="container columns">
           <div class="column is-three-quarters">
             <xsl:apply-templates select="body/outline"/>
-            <p><a href="/blogroll.opml.xml" download="blogroll.opml">Download this as OPML</a></p>
+            <p><a href="/blogroll.xml" download="blogroll.opml">Download this as OPML</a></p>
           </div>
           <div class="column">
               <div class="content">
