@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="3.0"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:opml="http://opml.org/spec2" >
+  <xsl:output method="html" version="1.0" media-type="text/html" encoding="UTF-8" indent="yes"/>
+  <xsl:template match="/opml">
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Blogroll</title>
+      <link rel="stylesheet" href="/assets/css/bulma.min.css" />
+    </head>
+    <body>
+      <section class="section">
+        <div class="container columns">
+          <div class="column is-three-quarters pb-0">
+              <h1 class="title">Blogroll</h1>
+              <p class="subtitle">
+                  <strong>Feeds to follow in your favorite reader</strong>
+              </p>
+          </div>
+        </div>
+      </section>
+      <section class="section pt-0">
+        <div class="container columns">
+          <div class="column is-three-quarters">
+            <xsl:apply-templates select="body/outline"/>
+            <p><a href="/blogroll.opml.xml" download="blogroll.opml">Download this as OPML</a></p>
+          </div>
+          <div class="column">
+              <div class="content">
+                  <h4 class="mb-1">Jeff Miccolis</h4>
+                  <ul class="is-size-7 has-text-grey" style="list-style: symbols(cyclic '↳')">
+                      <li>
+                          <a rel="me" href="https://mastodon.social/@miccolis">mastodon.social/@miccolis</a>
+                      </li>
+                      <li>
+                          <a rel="me" href="https://github.com/miccolis">github.com/miccolis</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+        </div>
+      </section>
+    </body>
+    </html>
+  </xsl:template>
+  <xsl:template match="outline">
+    <xsl:choose>
+      <xsl:when test="@type">
+        <li>
+	  <a href="{@htmlUrl}"><xsl:value-of select="@text"/></a> (<a href="{@xmlUrl}">feed</a>)
+        </li>
+      </xsl:when>
+      <xsl:otherwise>
+        <div class="content">
+          <h4><xsl:value-of select="@text"/></h4>
+	  <ul>
+	    <xsl:apply-templates select="outline"/>
+	  </ul>
+        </div>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+</xsl:stylesheet>
