@@ -1,5 +1,5 @@
 ---
-title: miccolis.github.io index
+title: jeff.miccolis.net
 layout: home
 ---
 <ul>
