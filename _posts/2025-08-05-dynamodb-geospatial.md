@@ -7,7 +7,7 @@ tag: technology
 
 Back in 2018 AWS published a blog post about using DynamoDB for storing geospatial data. It talks about using [Z-order indexing to efficiently reference data](https://aws.amazon.com/blogs/database/z-order-indexing-for-multifaceted-queries-in-amazon-dynamodb-part-1/). Since reading that post I have wanted to give it a try, despite a bit of yak shaving along the way, I’ve got it done!
 
-The approach I took is pretty much exactly what they talk about in the article, and I want to share what that looked like for me to implement, but I’m also gonna have some digressions along the way. Starting now…
+Code is over on <a href="https://github.com/miccolis/morton-ddb">https://github.com/miccolis/morton-ddb</a> and the approach I took is pretty much exactly what they talk about in the AWS article. I want to share what that looked like for me to implement, but I’m also gonna have some digressions along the way. Starting now…
 
 ### Digression one - Typescript for type-checking Javascript
 
