@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  A Take on using DynamoDB for Geospatial Data
+title:  A Take on Using DynamoDB for Geospatial Data
 subtitle: Also a few digressions about building and hosting Javascript applications
 tag: technology
 ---
@@ -46,7 +46,7 @@ I used Web Components in the simple front-end app I built to help me verify the 
 
 I completely understand the gap that it’s trying to fill, but the complexity it exposes don’t justify what you get from using it for an app like this. I know my thoughts about Web Components are shared by many others and I hope it leads to some change down the line.
 
-### Finally we get to Geo filtering
+### Finally we get to the geospatial bit!
 
 Ok, enough digressions - this was going to be about using DynamoDB, a database with fairly simple indexing functionality, to do multi-dimensional geospatial searches. Lets get to that!
 
