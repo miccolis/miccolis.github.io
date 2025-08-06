@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="/assets/xsl/blogroll.xslt.xml" media="screen" type="text/xsl"?>
 
-<opml version="2.0">
+<opml version="1.0">
     <head>
         <title>Jeff subscriptions in feedly Cloud</title>
     </head>
@@ -15,9 +15,9 @@
             <outline type="rss" text="notgull" title="notgull" xmlUrl="https://notgull.net/feed.xml" htmlUrl="http://notgull.net/"/>
             <outline type="rss" text="Pivot to AI" title="Pivot to AI" xmlUrl="https://pivot-to-ai.com/feed/" htmlUrl="https://pivot-to-ai.com"/>
             <outline type="rss" text="All Things Distributed" title="All Things Distributed" xmlUrl="http://www.allthingsdistributed.com/atom.xml" htmlUrl="https://www.allthingsdistributed.com/"/>
-            <outline type="rss" text="We Distribute" title="We Distribute" xmlUrl="https://wedistribute.org/feed/" htmlUrl="https://wedistribute.org/"/>
+            <outline type="rss" text="We Distribute" title="We Distribute" xmlUrl="https://wedistribute.org/feed/" htmlUrl="https://wedistribute.org"/>
             <outline type="rss" text="Mystery AI Hype Theater 3000: The Newsletter" title="Mystery AI Hype Theater 3000: The Newsletter" xmlUrl="https://buttondown.email/maiht3k/rss" htmlUrl="https://buttondown.com/maiht3k"/>
-            <outline type="rss" text="SpaceNews" title="SpaceNews" xmlUrl="http://spacenews.com/feed/" htmlUrl="https://spacenews.com"/>
+            <outline type="rss" text="SpaceNews" title="SpaceNews" xmlUrl="http://spacenews.com/feed/" htmlUrl="https://spacenews.com/"/>
             <outline type="rss" text="Tom MacWright" title="Tom MacWright" xmlUrl="http://feeds.feedburner.com/tommacwright/odWX" htmlUrl="https://macwright.com/"/>
             <outline type="rss" text="Perspectives" title="Perspectives" xmlUrl="http://perspectives.mvdirona.com/SyndicationService.asmx/GetRss" htmlUrl="https://perspectives.mvdirona.com"/>
             <outline type="rss" text="The Works in Progress Newsletter" title="The Works in Progress Newsletter" xmlUrl="https://worksinprogress.substack.com/feed/" htmlUrl="https://www.worksinprogress.news"/>
@@ -26,10 +26,11 @@
             <outline type="rss" text="english Archives - Smashing Frames" title="english Archives - Smashing Frames" xmlUrl="https://tante.cc/category/writing/english/feed/" htmlUrl="https://tante.cc/category/writing/english/"/>
             <outline type="rss" text="Recent Announcements" title="Recent Announcements" xmlUrl="http://aws.amazon.com/rss/whats-new.rss" htmlUrl="https://aws.amazon.com/about-aws/whats-new/recent/"/>
             <outline type="rss" text="deadSimpleTech blog feed" title="deadSimpleTech blog feed" xmlUrl="https://deadsimpletech.com/rss" htmlUrl="https://deadsimpletech.com"/>
-            <outline type="rss" text="Speculative Branches" title="Speculative Branches" xmlUrl="https://specbranch.com/index.xml" htmlUrl="http://localhost:1313/"/>
+            <outline type="rss" text="Speculative Branches" title="Speculative Branches" xmlUrl="https://specbranch.com/index.xml" htmlUrl="https://specbranch.com/"/>
             <outline type="rss" text="Honeypot.net" title="Honeypot.net" xmlUrl="https://honeypot.net/index.xml" htmlUrl="https://honeypot.net/"/>
             <outline type="rss" text="Dan Luu" title="Dan Luu" xmlUrl="http://danluu.com/atom.xml" htmlUrl="https://danluu.com/atom/index.xml"/>
             <outline type="rss" text="Stratechery by Ben Thompson" title="Stratechery by Ben Thompson" xmlUrl="https://stratechery.com/feed/" htmlUrl="https://stratechery.com"/>
+            <outline type="rss" text="Anarcat - Blog." title="Anarcat - Blog." xmlUrl="https://anarc.at/blog/index.rss" htmlUrl="https://anarc.at/blog/"/>
             <outline type="rss" text="Ian Betteridge" title="Ian Betteridge" xmlUrl="https://ianbetteridge.com/feed/" htmlUrl="https://www.ianbetteridge.com/"/>
             <outline type="rss" text="2ality – JavaScript and more" title="2ality – JavaScript and more" xmlUrl="http://www.2ality.com/feeds/posts/default" htmlUrl="https://2ality.com/"/>
             <outline type="rss" text="Irrational Exuberance" title="Irrational Exuberance" xmlUrl="http://lethain.com/feeds/all/" htmlUrl="https://lethain.com/"/>
@@ -41,9 +42,10 @@
             <outline type="rss" text="NASA Image of the Day" title="NASA Image of the Day" xmlUrl="http://www.nasa.gov/rss/image_of_the_day.rss" htmlUrl="https://www.nasa.gov/image-of-the-day/"/>
             <outline type="rss" text="The Luddite" title="The Luddite" xmlUrl="https://theluddite.org/feed.rss" htmlUrl="https://theluddite.org"/>
             <outline type="rss" text="Tech Policy Press" title="Tech Policy Press" xmlUrl="https://techpolicy.press/rss/feed.xml" htmlUrl="https://techpolicy.press"/>
-            <outline type="rss" text="Posts on ./jm" title="Posts on ./jm" xmlUrl="https://justinmiller.io/posts/index.xml" htmlUrl="https://justinmiller.io/posts/"/>
+            <outline type="rss" text="Justin Miller" title="Justin Miller" xmlUrl="https://justinmiller.io/posts/index.xml" htmlUrl="https://justinmiller.io/"/>
             <outline type="rss" text="Corrode Rust Consulting" title="Corrode Rust Consulting" xmlUrl="https://corrode.dev/rss.xml" htmlUrl="https://corrode.dev"/>
             <outline type="rss" text="Stories by Ben Kehoe on Medium" title="Stories by Ben Kehoe on Medium" xmlUrl="https://medium.com/feed/@ben11kehoe" htmlUrl="https://medium.com/@ben11kehoe?source=rss-586bd5b557d2------2"/>
+            <outline type="rss" text="Automate attention" title="Automate attention" xmlUrl="https://blog.brujordet.no//index.xml" htmlUrl="http://blog.brujordet.no/"/>
             <outline type="rss" text="Disconnect" title="Disconnect" xmlUrl="https://www.disconnect.blog/feed" htmlUrl="https://www.disconnect.blog"/>
             <outline type="rss" text="Project Zero" title="Project Zero" xmlUrl="http://googleprojectzero.blogspot.com/feeds/posts/default" htmlUrl="https://googleprojectzero.blogspot.com/"/>
             <outline type="rss" text="Andrii Holovin – Blog |" title="Andrii Holovin – Blog |" xmlUrl="https://blog.andygol.co.ua/en/feed.xml" htmlUrl="https://blog.andygol.co.ua/en"/>
@@ -70,6 +72,7 @@
             <outline type="rss" text="In These Times" title="In These Times" xmlUrl="http://feeds.feedburner.com/InTheseTimes" htmlUrl="https://inthesetimes.com/"/>
             <outline type="rss" text="Canary Media" title="Canary Media" xmlUrl="https://www.canarymedia.com/rss/" htmlUrl="https://www.canarymedia.com/"/>
             <outline type="rss" text="CrimethInc." title="CrimethInc." xmlUrl="http://www.crimethinc.com/blog/feed/" htmlUrl="https://crimethinc.com"/>
+            <outline type="rss" text="The Elysian" title="The Elysian" xmlUrl="https://ellegriffin.substack.com/feed/" htmlUrl="https://www.elysian.press"/>
             <outline type="rss" text="Carbon Mapper" title="Carbon Mapper" xmlUrl="https://carbonmapper.org/feed/" htmlUrl="https://carbonmapper.org/"/>
         </outline>
     </body>
