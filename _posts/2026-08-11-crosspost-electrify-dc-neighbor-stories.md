@@ -9,7 +9,7 @@ Every year there is an event here in DC called the ["Healthy Homes Fair."](https
 
 <div class="box mb-3">
 <img src="/assets/images/2026-08-11-crosspost-electrify-dc/screenshot.png" alt="Photo of an blog post about switching to Induction cooking" width="800" height="388"/>
-<div class="is-size-7 pb-1">Our post over on <a href="https://electrifydc.org/fair/">Electrify DC's site</a>.</div>
+<div class="is-size-7 pb-1">Our post over on <a href="https://electrifydc.org/2026/07/20/the-gas-to-induction-switch-and-why-now-is-a-good-time-to-upgrade/">Electrify DC's site</a>.</div>
 </div>
 
 From [the post](https://electrifydc.org/2026/07/20/the-gas-to-induction-switch-and-why-now-is-a-good-time-to-upgrade/):
